@@ -1,0 +1,93 @@
+<div class='goal-cont'>
+    <div style='position: relative'>
+      <div id='goal-bar'>
+        <p id='goal-current'>0</p>
+        <p id='title'>Meta de Follower</p>
+        <p id='goal-total'>20</p>
+        <div id='total-bar'></div>
+      </div>
+    </div>
+</div>
+
+<style>
+    .goal-cont {
+    margin: 10px;
+        color: white;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    }
+
+    #title {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    text-shadow: 0px 0px 10px #000;
+    margin: 0;
+    width: 70%;
+    z-index: 1;
+    }
+
+    #goal-bar {
+    border: 4px solid black;
+    border-radius: 52px 52px 0px 0px;
+    background-color: rgba(1, 1, 1, 0.5);
+    padding: 16px;
+    display: flex;
+    position: relativ;
+    overflow: hidden;
+    }
+
+    #goal-current,
+    #goal-total {
+    margin: 0;
+        font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    text-shadow: 0px 0px 10px #000;
+    width: 15%;
+    z-index: 1;
+    }
+
+    #goal-total {
+    text-align: right;
+    }
+
+    #total-bar {
+    position: absolute;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    max-width: 100%;
+    background: greenyellow;
+    top: 4px;
+    left: 4px;
+    overflow: hidden;
+    border-radius: 50px 50px 0px 0px;
+    }
+</style>
+
+<script>
+  document.addEventListener('goalLoad', function(obj) {
+  $('#title').html(obj.detail.titel);
+  $('#goal-total').text(obj.detail.amount.target);
+  $('#goal-end-date').text(obj.detail.to_go.ends_at);
+  $('#goal-current').text(obj.detail.amount.current);
+  var total = $('#goal-total').html(),
+      current = $('#goal-current').html();
+ 	$('#total-bar').css('width', current / total * 100 + '%').css('width', '-=8px');
+  $('#goal-total').text(obj.detail.amount.target);
+  $('#goal-current').text(obj.detail.amount.current);
+});
+
+document.addEventListener('goalEvent', function(obj) {
+  $('#goal-total').text(obj.detail.amount.target);
+  $('#goal-current').text(obj.detail.amount.current);
+  var total = $('#goal-total').html(),
+      current = $('#goal-current').html();
+	$('#total-bar').css('width', current / total * 100 + '%').css('width', '-=8px');
+  $('#goal-total').text(obj.detail.amount.target);
+  $('#goal-current').text(obj.detail.amount.current);
+});
+</script>
